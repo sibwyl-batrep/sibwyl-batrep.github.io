@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>DevOps and other stuff</title>
+    <description>Urbitian. My entry in the dev world. I try, edit and try again </description>
+    <link>http://sibwyl-batrep.github.io/</link>
+    <atom:link href="http://sibwyl-batrep.github.io/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Tue, 04 Jan 2022 21:25:16 +0000</pubDate>
+    <lastBuildDate>Tue, 04 Jan 2022 21:25:16 +0000</lastBuildDate>
+    <generator>Jekyll v4.2.1</generator>
+    
+      <item>
+        <title>First Hometask. Skillbox SQL course</title>
+        <description>&lt;h1 id=&quot;домашнее-задание-студента-курса-язык-запросов-sql&quot;&gt;Домашнее задание студента курса “Язык запросов SQL”&lt;/h1&gt;
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;домашнее-задание-1---выбор-и-фильтрация-данных-запрос-select&quot;&gt;Домашнее задание №1 - Выбор и фильтрация данных, запрос SELECT&lt;/h2&gt;
+
+&lt;h3 id=&quot;1-написать-запрос-для-выбора-студентов-в-порядке-их-регистрации&quot;&gt;1. Написать запрос для выбора студентов в порядке их регистрации.&lt;/h3&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mysql&amp;gt; SELECT * FROM Students ORDER BY registration_date;&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Результат:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.imgur.com/qbnEevR.png&quot; alt=&quot;Imgur&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;2-написать-запрос-для-выбора-5-самых-дорогих-курсов-на-которых-более-4-студентов-и-которые-длятся-более-10-часов&quot;&gt;2. Написать запрос для выбора 5 самых дорогих курсов, на которых более 4 студентов, и которые длятся более 10 часов.&lt;/h3&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mysql&amp;gt; SELECT name, duration, students_count, price FROM Courses WHERE students_count &amp;gt; 4 AND duration &amp;gt; 10 ORDER BY price DESC LIMIT 5;&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Результат:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.imgur.com/etaz8Kb.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;3-написать-один--запрос-который-выведет-одновременно-список-из-имен-трёх-самых-молодых-студентов-имен-трёх-самых-старых-учителей-и-названий-трёх-самых-продолжительных-курсов&quot;&gt;3. Написать один (!) запрос, который выведет одновременно список из имен трёх самых молодых студентов, имен трёх самых старых учителей и названий трёх самых продолжительных курсов.&lt;/h3&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mysql&amp;gt; (SELECT name FROM Students ORDER BY age LIMIT 3)
+    -&amp;gt; UNION
+    -&amp;gt; (SELECT name FROM Teachers ORDER BY age DESC LIMIT 3)
+    -&amp;gt; UNION
+    -&amp;gt; (SELECT name FROM Courses ORDER BY duration DESC LIMIT 3);&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Результат:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.imgur.com/5QAUYrB.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;домашнее-задание-2---функции-и-выражения-агрегация-данных&quot;&gt;Домашнее задание №2 - Функции и выражения, агрегация данных&lt;/h2&gt;
+
+&lt;h3 id=&quot;1-написать-запрос-для-выбора-среднего-возраста-всех-учителей-с-зарплатой-более-10-000&quot;&gt;1. Написать запрос для выбора среднего возраста всех учителей с зарплатой более 10 000.&lt;/h3&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mysql&amp;gt; SELECT AVG(age) AS average_age_of_teachers_whose_salary_is_higher_than_10k FROM Teachers WHERE salary &amp;gt; 10000;&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Результат:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.imgur.com/MThNycx.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;2-написать-запрос-для-расчета-суммы-сколько-будет-стоить-купить-все-курсы-по-дизайну&quot;&gt;2. Написать запрос для расчета суммы, сколько будет стоить купить все курсы по дизайну.&lt;/h3&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mysql&amp;gt; SELECT SUM(price) AS total_price_for_design_courses FROM Courses WHERE type = &quot;DESIGN&quot;;&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Результат:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.imgur.com/47OpV0X.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;3-написать-запрос-для-расчёта-сколько-минут--длятся-все-курсы-по-программированию&quot;&gt;3. Написать запрос для расчёта, сколько минут (!) длятся все курсы по программированию.&lt;/h3&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mysql&amp;gt; SELECT SUM(duration * 60) AS duration_of_all_prog_courses_in_minutes
+    -&amp;gt; FROM Courses WHERE type = &quot;PROGRAMMING&quot;;&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Результат:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.imgur.com/Dj0x7gn.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;домашнее-задание-3---группировка-соединение-таблиц-join&quot;&gt;Домашнее задание №3 - Группировка, соединение таблиц (JOIN)&lt;/h2&gt;
+
+&lt;h3 id=&quot;1-напишите-запрос-который-выводит-сумму-сколько-часов-должен-в-итоге-проучиться-каждый-студент-сумма-длительности-всех-курсов-на-которые-он-подписан&quot;&gt;1. Напишите запрос, который выводит сумму, сколько часов должен в итоге проучиться каждый студент (сумма длительности всех курсов на которые он подписан).&lt;/h3&gt;
+&lt;h4 id=&quot;в-результате-запрос-возвращает-две-колонки-имя-студента--количество-часов&quot;&gt;В результате запрос возвращает две колонки: Имя Студента — Количество часов.&lt;/h4&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mysql&amp;gt; SELECT Students.name AS student_name,
+    -&amp;gt; SUM(duration) AS duration_of_all_courses
+    -&amp;gt; FROM Courses
+    -&amp;gt; JOIN Subscriptions ON Courses.id = Subscriptions.course_id
+    -&amp;gt; JOIN Students ON Students.id = Subscriptions.student_id
+    -&amp;gt; GROUP BY Students.name;&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Результат:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.imgur.com/x1AZQId.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;2-напишите-запрос-который-посчитает-для-каждого-учителя-средний-возраст-его-учеников&quot;&gt;2. Напишите запрос, который посчитает для каждого учителя средний возраст его учеников.&lt;/h3&gt;
+&lt;h4 id=&quot;в-результате-запрос-возвращает-две-колонки-имя-учителя--средний-возраст-учеников&quot;&gt;В результате запрос возвращает две колонки: Имя Учителя — Средний Возраст Учеников.&lt;/h4&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mysql&amp;gt; SELECT Teachers.name AS Teacher_name,
+    -&amp;gt; AVG(Students.age) AS average_age_of_students
+    -&amp;gt; FROM Courses
+    -&amp;gt; JOIN Teachers ON Teachers.id = Courses.teacher_id
+    -&amp;gt; JOIN Subscriptions ON Courses.id = Subscriptions.course_id
+    -&amp;gt; JOIN Students ON Students.id = Subscriptions.student_id
+    -&amp;gt; GROUP BY Teacher_name;&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Результат:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.imgur.com/kujeH4p.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;3-напишите-запрос-который-выводит-среднюю-зарплату-учителей-для-каждого-типа-курса-дизайнпрограммированиемаркетинг-и-тд&quot;&gt;3. Напишите запрос, который выводит среднюю зарплату учителей для каждого типа курса (Дизайн/Программирование/Маркетинг и т.д.).&lt;/h3&gt;
+&lt;h4 id=&quot;в-результате-запрос-возвращает-две-колонки-тип-курса--средняя-зарплата&quot;&gt;В результате запрос возвращает две колонки: Тип Курса — Средняя зарплата.&lt;/h4&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mysql&amp;gt; SELECT Courses.type AS course_type,
+    -&amp;gt; AVG(salary) AS average_teachers_salary
+    -&amp;gt; FROM Courses
+    -&amp;gt; JOIN Teachers ON Teachers.id = Courses.teacher_id
+    -&amp;gt; GROUP BY course_type;&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Результат:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.imgur.com/KJybet7.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+</description>
+        <pubDate>Fri, 31 Dec 2021 22:00:00 +0000</pubDate>
+        <link>http://sibwyl-batrep.github.io/programming/2021/12/31/first-hometask.html</link>
+        <guid isPermaLink="true">http://sibwyl-batrep.github.io/programming/2021/12/31/first-hometask.html</guid>
+        
+        
+        <category>programming</category>
+        
+      </item>
+    
+  </channel>
+</rss>

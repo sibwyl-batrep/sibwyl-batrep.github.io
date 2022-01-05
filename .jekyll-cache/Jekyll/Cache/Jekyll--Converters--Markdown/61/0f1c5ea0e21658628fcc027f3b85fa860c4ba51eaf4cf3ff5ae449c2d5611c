@@ -1,0 +1,104 @@
+I",!<h1 id="домашнее-задание-студента-курса-язык-запросов-sql">Домашнее задание студента курса “Язык запросов SQL”</h1>
+<hr />
+
+<h2 id="домашнее-задание-1---выбор-и-фильтрация-данных-запрос-select">Домашнее задание №1 - Выбор и фильтрация данных, запрос SELECT</h2>
+
+<h3 id="1-написать-запрос-для-выбора-студентов-в-порядке-их-регистрации">1. Написать запрос для выбора студентов в порядке их регистрации.</h3>
+
+<p><code class="language-plaintext highlighter-rouge">mysql&gt; SELECT * FROM Students ORDER BY registration_date;</code></p>
+
+<p>Результат:</p>
+
+<p><img src="https://i.imgur.com/qbnEevR.png" alt="Imgur" /></p>
+
+<h3 id="2-написать-запрос-для-выбора-5-самых-дорогих-курсов-на-которых-более-4-студентов-и-которые-длятся-более-10-часов">2. Написать запрос для выбора 5 самых дорогих курсов, на которых более 4 студентов, и которые длятся более 10 часов.</h3>
+
+<p><code class="language-plaintext highlighter-rouge">mysql&gt; SELECT name, duration, students_count, price FROM Courses WHERE students_count &gt; 4 AND duration &gt; 10 ORDER BY price DESC LIMIT 5;</code></p>
+
+<p>Результат:</p>
+
+<p><img src="https://i.imgur.com/etaz8Kb.png" alt="" /></p>
+
+<h3 id="3-написать-один--запрос-который-выведет-одновременно-список-из-имен-трёх-самых-молодых-студентов-имен-трёх-самых-старых-учителей-и-названий-трёх-самых-продолжительных-курсов">3. Написать один (!) запрос, который выведет одновременно список из имен трёх самых молодых студентов, имен трёх самых старых учителей и названий трёх самых продолжительных курсов.</h3>
+
+<p><code class="language-plaintext highlighter-rouge">mysql&gt; (SELECT name FROM Students ORDER BY age LIMIT 3)
+    -&gt; UNION
+    -&gt; (SELECT name FROM Teachers ORDER BY age DESC LIMIT 3)
+    -&gt; UNION
+    -&gt; (SELECT name FROM Courses ORDER BY duration DESC LIMIT 3);</code></p>
+
+<p>Результат:</p>
+
+<p><img src="https://i.imgur.com/5QAUYrB.png" alt="" /></p>
+
+<h2 id="домашнее-задание-2---функции-и-выражения-агрегация-данных">Домашнее задание №2 - Функции и выражения, агрегация данных</h2>
+
+<h3 id="1-написать-запрос-для-выбора-среднего-возраста-всех-учителей-с-зарплатой-более-10-000">1. Написать запрос для выбора среднего возраста всех учителей с зарплатой более 10 000.</h3>
+
+<p><code class="language-plaintext highlighter-rouge">mysql&gt; SELECT AVG(age) AS average_age_of_teachers_whose_salary_is_higher_than_10k FROM Teachers WHERE salary &gt; 10000;</code></p>
+
+<p>Результат:</p>
+
+<p><img src="https://i.imgur.com/MThNycx.png" alt="" /></p>
+
+<h3 id="2-написать-запрос-для-расчета-суммы-сколько-будет-стоить-купить-все-курсы-по-дизайну">2. Написать запрос для расчета суммы, сколько будет стоить купить все курсы по дизайну.</h3>
+
+<p><code class="language-plaintext highlighter-rouge">mysql&gt; SELECT SUM(price) AS total_price_for_design_courses FROM Courses WHERE type = "DESIGN";</code></p>
+
+<p>Результат:</p>
+
+<p><img src="https://i.imgur.com/47OpV0X.png" alt="" /></p>
+
+<h3 id="3-написать-запрос-для-расчёта-сколько-минут--длятся-все-курсы-по-программированию">3. Написать запрос для расчёта, сколько минут (!) длятся все курсы по программированию.</h3>
+
+<p><code class="language-plaintext highlighter-rouge">mysql&gt; SELECT SUM(duration * 60) AS duration_of_all_prog_courses_in_minutes
+    -&gt; FROM Courses WHERE type = "PROGRAMMING";</code></p>
+
+<p>Результат:</p>
+
+<p><img src="https://i.imgur.com/Dj0x7gn.png" alt="" /></p>
+
+<h2 id="домашнее-задание-3---группировка-соединение-таблиц-join">Домашнее задание №3 - Группировка, соединение таблиц (JOIN)</h2>
+
+<h3 id="1-напишите-запрос-который-выводит-сумму-сколько-часов-должен-в-итоге-проучиться-каждый-студент-сумма-длительности-всех-курсов-на-которые-он-подписан">1. Напишите запрос, который выводит сумму, сколько часов должен в итоге проучиться каждый студент (сумма длительности всех курсов на которые он подписан).</h3>
+<h4 id="в-результате-запрос-возвращает-две-колонки-имя-студента--количество-часов">В результате запрос возвращает две колонки: Имя Студента — Количество часов.</h4>
+
+<p><code class="language-plaintext highlighter-rouge">mysql&gt; SELECT Students.name AS student_name,
+    -&gt; SUM(duration) AS duration_of_all_courses
+    -&gt; FROM Courses
+    -&gt; JOIN Subscriptions ON Courses.id = Subscriptions.course_id
+    -&gt; JOIN Students ON Students.id = Subscriptions.student_id
+    -&gt; GROUP BY Students.name;</code></p>
+
+<p>Результат:</p>
+
+<p><img src="https://i.imgur.com/x1AZQId.png" alt="" /></p>
+
+<h3 id="2-напишите-запрос-который-посчитает-для-каждого-учителя-средний-возраст-его-учеников">2. Напишите запрос, который посчитает для каждого учителя средний возраст его учеников.</h3>
+<h4 id="в-результате-запрос-возвращает-две-колонки-имя-учителя--средний-возраст-учеников">В результате запрос возвращает две колонки: Имя Учителя — Средний Возраст Учеников.</h4>
+
+<p><code class="language-plaintext highlighter-rouge">mysql&gt; SELECT Teachers.name AS Teacher_name,
+    -&gt; AVG(Students.age) AS average_age_of_students
+    -&gt; FROM Courses
+    -&gt; JOIN Teachers ON Teachers.id = Courses.teacher_id
+    -&gt; JOIN Subscriptions ON Courses.id = Subscriptions.course_id
+    -&gt; JOIN Students ON Students.id = Subscriptions.student_id
+    -&gt; GROUP BY Teacher_name;</code></p>
+
+<p>Результат:</p>
+
+<p><img src="https://i.imgur.com/kujeH4p.png" alt="" /></p>
+
+<h3 id="3-напишите-запрос-который-выводит-среднюю-зарплату-учителей-для-каждого-типа-курса-дизайнпрограммированиемаркетинг-и-тд">3. Напишите запрос, который выводит среднюю зарплату учителей для каждого типа курса (Дизайн/Программирование/Маркетинг и т.д.).</h3>
+<h4 id="в-результате-запрос-возвращает-две-колонки-тип-курса--средняя-зарплата">В результате запрос возвращает две колонки: Тип Курса — Средняя зарплата.</h4>
+
+<p><code class="language-plaintext highlighter-rouge">mysql&gt; SELECT Courses.type AS course_type,
+    -&gt; AVG(salary) AS average_teachers_salary
+    -&gt; FROM Courses
+    -&gt; JOIN Teachers ON Teachers.id = Courses.teacher_id
+    -&gt; GROUP BY course_type;</code></p>
+
+<p>Результат:</p>
+
+<p><img src="https://i.imgur.com/KJybet7.png" alt="" /></p>
+:ET
