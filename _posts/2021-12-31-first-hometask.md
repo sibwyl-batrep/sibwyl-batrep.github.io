@@ -4,7 +4,6 @@ date: 2021-12-31T22:00:00.000+00:00
 categories:
 - programming
 layout: post
-subtitle: with JAX
 
 ---
 
